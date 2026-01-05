@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skill Gap Analysis Report</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial;
+            background: linear-gradient(135deg, #6a6ff2, #7b4da8);
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 1100px;
+            background: #ffffff;
+            margin: auto;
+            border-radius: 14px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .role {
+            text-align: center;
+            font-size: 18px;
+            color: #6a6ff2;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+            gap: 20px;
+        }
+
+        .score-card {
+            background: #f5f7ff;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            border-top: 5px solid #6a6ff2;
+        }
+
+        .score-card h2 {
+            font-size: 34px;
+            margin: 10px 0;
+        }
+
+        .section {
+            margin-top: 40px;
+        }
+
+        .section h3 {
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .skill {
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+            background: #e8f0ff;
+        }
+
+        .missing {
+            background: #ffe6e6;
+        }
+
+        .recommendation {
+            margin-top: 30px;
+            background: #eef7f1;
+            padding: 18px;
+            border-radius: 8px;
+            border-left: 5px solid #28a745;
+        }
+
+        .actions {
+            text-align: center;
+            margin-top: 35px;
+        }
+
+        .actions a {
+            text-decoration: none;
+            padding: 12px 22px;
+            background: #6a6ff2;
+            color: white;
+            border-radius: 8px;
+            margin: 0 10px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Resume Skill Gap Analysis Report</h1>
+<div class="role">
+    {{ results.job_role }} | {{ results.category }}
+</div>
+
+<div class="score-grid">
+    <div class="score-card">
+        <p>Overall Match</p>
+        <h2>{{ results.scores.overall_match }}%</h2>
+    </div>
+    <div class="score-card">
+        <p>Technical Match</p>
+        <h2>{{ results.scores.technical_match }}%</h2>
+    </div>
+    <div class="score-card">
+        <p>Soft Skill Match</p>
+        <h2>{{ results.scores.soft_match }}%</h2>
+    </div>
+</div>
+
+<div class="section">
+    <h3>Matched Technical Skills</h3>
+    <div class="skills">
+        {% for s in results.resume_skills.technical_skills %}
+            <div class="skill">{{ s }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="section">
+    <h3>Missing Technical Skills (Skill Gap)</h3>
+    <div class="skills">
+        {% for s in results.missing_skills.technical %}
+            <div class="skill missing">{{ s }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="recommendation">
+    <b>System Recommendation:</b><br>
+    {{ results.recommendation }}
+</div>
+
+<div class="actions">
+    <a href="/">Analyze Another Resume</a>
+    <a href="#" onclick="window.print()">Print Report</a>
+</div>
+
+</div>
+
+</body>
+</html>

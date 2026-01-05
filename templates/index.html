@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Resume Skill Gap Analyzer</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: linear-gradient(135deg, #6a6ff2, #7b4da8);
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        .card {
+            max-width: 950px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 8px;
+            color: #2c2c54;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #eef3ff;
+            border-left: 5px solid #6a6ff2;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 220px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #6a6ff2, #7b4da8);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.95;
+        }
+
+        .error {
+            background: #ffeaea;
+            color: #c0392b;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="card">
+    <h1>🎯 AI Resume Skill Gap Analyzer</h1>
+    <div class="subtitle">
+        Analyze Your Resume Against Job Requirements Using NLP
+    </div>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <div class="info-box">
+        <b>How It Works:</b>
+        <ul>
+            <li>Select the target job role</li>
+            <li>Paste your resume content</li>
+            <li>The system extracts skills using NLP</li>
+            <li>View skill match percentage and gaps</li>
+        </ul>
+    </div>
+
+    <form action="/analyze" method="post">
+        <label>Target Job Role</label>
+        <select name="job_role" required>
+            <option value="">-- Choose Job Role --</option>
+            {% for key, name in job_roles.items() %}
+                <option value="{{ key }}">{{ name }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Resume Text</label>
+        <textarea name="resume_text" required
+        placeholder="Paste your resume here including skills, education, projects, experience..."></textarea>
+
+        <button type="submit">🚀 Analyze My Resume</button>
+    </form>
+</div>
+
+</body>
+</html>
